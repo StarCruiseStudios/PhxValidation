@@ -6,27 +6,23 @@
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-using NUnit.Framework;
-using Phx.Test;
+namespace Phx.Validation {
+    using NUnit.Framework;
+    using Phx.Test;
 
-namespace Phx.Validation
-{
     [TestFixture]
     [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     [Parallelizable(ParallelScope.All)]
-    public class CheckTest : LoggingTestClass
-    {
+    public class CheckTest : LoggingTestClass {
         [Test]
-        public void CheckThatOnSuccess()
-        {
+        public void CheckThatOnSuccess() {
             var result = Given("A successful validation result", () => ValidationResult.Success());
             var actual = When("Checking the result", () => Check.That(result));
             Then("The validation succeeds", () => Verify.That(actual.IsTrue()));
         }
 
         [Test]
-        public void CheckThatOnFailure()
-        {
+        public void CheckThatOnFailure() {
             var result = Given("An unsuccessful validation result", () => ValidationResult.Failure("Check failed"));
             var actual = When("Checking the result", () => Check.That(result));
             Then("The validation succeeds", () => Verify.That(actual.IsFalse()));

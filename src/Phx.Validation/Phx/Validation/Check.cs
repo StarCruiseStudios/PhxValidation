@@ -6,20 +6,13 @@
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-namespace Phx.Validation
-{
-    /// <summary>
-    ///     Contains validation methods that return a boolean indicating whether a validation is evaluated successfully.
-    /// </summary>
-    public static class Check
-    {
-        /// <summary>
-        ///     Returns a valud indicating whether a validation is evaluated successfully.
-        /// </summary>
+namespace Phx.Validation {
+    /// <summary> Contains validation methods that return a boolean indicating whether a validation is evaluated successfully. </summary>
+    public static class Check {
+        /// <summary> Returns a valud indicating whether a validation is evaluated successfully. </summary>
         /// <param name="result"> The result of the validation. </param>
-        /// <return> <c>true</c> if the validation is successful, otherwise <c>false</c>. </return>
-        public static bool That(ValidationResult result)
-        {
+        /// <return> <c> true </c> if the validation is successful, otherwise <c> false </c>. </return>
+        public static bool That(ValidationResult result) {
             return result.IsSuccess;
         }
     }

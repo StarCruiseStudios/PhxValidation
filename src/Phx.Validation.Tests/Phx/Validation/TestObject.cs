@@ -6,12 +6,10 @@
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-using System;
+namespace Phx.Validation {
+    using System;
 
-namespace Phx.Validation
-{
-    public enum TestObject
-    {
+    public enum TestObject {
         ObjectA,
         ObjectB,
         ComparableLess,
@@ -22,24 +20,21 @@ namespace Phx.Validation
         Null
     }
 
-    public static class TestObjectExtensions
-    {
-        private static readonly object ObjectA = new object();
-        private static readonly object ObjectB = new object();
+    public static class TestObjectExtensions {
+        private static readonly object ObjectA = new();
+        private static readonly object ObjectB = new();
 
-        public static object? GetObject(this TestObject odr)
-        {
-            return odr switch
-            {
-                TestObject.ObjectA => TestObjectExtensions.ObjectA,
-                TestObject.ObjectB => TestObjectExtensions.ObjectB,
+        public static object? GetObject(this TestObject odr) {
+            return odr switch {
+                TestObject.ObjectA => ObjectA,
+                TestObject.ObjectB => ObjectB,
                 TestObject.ComparableLess => "A",
                 TestObject.ComparableMin => "B",
                 TestObject.ComparableMiddle => "M",
                 TestObject.ComparableMax => "Y",
                 TestObject.ComparableMore => "Z",
                 TestObject.Null => null,
-                _ => throw new NotSupportedException($"Unknown Test Object ${odr}."),
+                _ => throw new NotSupportedException($"Unknown Test Object ${odr}.")
             };
         }
     }

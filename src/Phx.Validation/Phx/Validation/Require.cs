@@ -6,32 +6,25 @@
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-using System;
+namespace Phx.Validation {
+    using System;
 
-namespace Phx.Validation
-{
-    /// <summary>
-    ///     Contains validation methods that throw an exception if evaluated unsuccessfully.
-    /// </summary>
-    public static class Require
-    {
-        /// <summary>
-        ///     Throws an <see cref="ArgumentException"/> if a validation fails on an argument.
-        /// </summary>
+    /// <summary> Contains validation methods that throw an exception if evaluated unsuccessfully. </summary>
+    public static class Require {
+        /// <summary> Throws an <see cref="ArgumentException" /> if a validation fails on an argument. </summary>
         /// <param name="argumentName"> The name of the argument. </param>
         /// <param name="result"> The validation result to evaluate. </param>
-        /// <param name="failureMessageFormat"> The message to use in case of a validation failure. The message can be a
-        ///                                     format string and will be passed the provided name of the argument as
-        ///                                     argument <c>{0}</c>. </param>
+        /// <param name="failureMessageFormat">
+        ///     The message to use in case of a validation failure. The message can be a format
+        ///     string and will be passed the provided name of the argument as argument <c> {0} </c>.
+        /// </param>
         /// <exception cref="ArgumentException"> Thrown when the provided result is a failure. </exception>
         public static void ThatArgument(
-            string argumentName,
-            ValidationResult result,
-            string failureMessageFormat = "Argument '{0}' is invalid."
-        )
-        {
-            switch (result)
-            {
+                string argumentName,
+                ValidationResult result,
+                string failureMessageFormat = "Argument '{0}' is invalid."
+        ) {
+            switch (result) {
                 case SuccessResult:
                     break;
                 case FailureResult failure:
@@ -44,23 +37,20 @@ namespace Phx.Validation
             }
         }
 
-        /// <summary>
-        ///     Throws an <see cref="InvalidOperationException"/> if a validation fails on a value.
-        /// </summary>
+        /// <summary> Throws an <see cref="InvalidOperationException" /> if a validation fails on a value. </summary>
         /// <param name="valueName"> The name of the value. </param>
         /// <param name="result"> The validation result to evaluate. </param>
-        /// <param name="failureMessageFormat"> The message to use in case of a validation failure. The message can be a
-        ///                                     format string and will be passed the provided name of the value as
-        ///                                     argument <c>{0}</c>. </param>
+        /// <param name="failureMessageFormat">
+        ///     The message to use in case of a validation failure. The message can be a format
+        ///     string and will be passed the provided name of the value as argument <c> {0} </c>.
+        /// </param>
         /// <exception cref="InvalidOperationException"> Thrown when the provided result is a failure. </exception>
         public static void ThatValue(
-            string valueName,
-            ValidationResult result,
-            string failureMessageFormat = "Value '{0}' is invalid."
-        )
-        {
-            switch (result)
-            {
+                string valueName,
+                ValidationResult result,
+                string failureMessageFormat = "Value '{0}' is invalid."
+        ) {
+            switch (result) {
                 case SuccessResult:
                     break;
                 case FailureResult failure:

@@ -6,49 +6,43 @@
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-using System;
-using NUnit.Framework;
-using Phx.Validation;
+namespace Phx.Test {
+    using System;
+    using NUnit.Framework;
+    using Phx.Validation;
 
-namespace Phx.Test
-{
     [TestFixture]
     [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     [Parallelizable(ParallelScope.All)]
-    public class RequireTest
-    {
+    public class RequireTest {
         [Test]
-        public void RequireThatArgumentOnSuccess()
-        {
+        public void RequireThatArgumentOnSuccess() {
             var result = ValidationResult.Success();
 
             Require.ThatArgument(nameof(result), result);
         }
 
         [Test]
-        public void RequireThatArgumentOnFailure()
-        {
+        public void RequireThatArgumentOnFailure() {
             var result = ValidationResult.Failure("Test failed");
 
             _ = TestUtils.TestForError<ArgumentException>(
-                () => Require.ThatArgument(nameof(result), result));
+                    () => Require.ThatArgument(nameof(result), result));
         }
 
         [Test]
-        public void RequireThatValueOnSuccess()
-        {
+        public void RequireThatValueOnSuccess() {
             var result = ValidationResult.Success();
 
             Require.ThatValue(nameof(result), result);
         }
 
         [Test]
-        public void RequireThatValueOnFailure()
-        {
+        public void RequireThatValueOnFailure() {
             var result = ValidationResult.Failure("Test failed");
 
             _ = TestUtils.TestForError<InvalidOperationException>(
-                () => Require.ThatValue(nameof(result), result));
+                    () => Require.ThatValue(nameof(result), result));
         }
     }
 }
