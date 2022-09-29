@@ -1,15 +1,15 @@
 // -----------------------------------------------------------------------------
 //  <copyright file="RequireTest.cs" company="Star Cruise Studios LLC">
 //      Copyright (c) 2022 Star Cruise Studios LLC. All rights reserved.
-//      Licensed under the Apache License 2.0 License.
+//      Licensed under the Apache License, Version 2.0.
 //      See http://www.apache.org/licenses/LICENSE-2.0 for full license information.
 //  </copyright>
 // -----------------------------------------------------------------------------
 
-namespace Phx.Test {
+namespace Phx.Validation {
     using System;
     using NUnit.Framework;
-    using Phx.Validation;
+    using Phx.Test;
 
     [TestFixture]
     [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
@@ -34,7 +34,7 @@ namespace Phx.Test {
         public void RequireThatValueOnSuccess() {
             var result = ValidationResult.Success();
 
-            Require.ThatValue(nameof(result), result);
+            Require.ThatValue(result);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace Phx.Test {
             var result = ValidationResult.Failure("Test failed");
 
             _ = TestUtils.TestForError<InvalidOperationException>(
-                    () => Require.ThatValue(nameof(result), result));
+                    () => Require.ThatValue(result));
         }
     }
 }

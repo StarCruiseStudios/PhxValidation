@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------------
 //  <copyright file="Require.cs" company="Star Cruise Studios LLC">
 //      Copyright (c) 2022 Star Cruise Studios LLC. All rights reserved.
-//      Licensed under the Apache License 2.0 License.
+//      Licensed under the Apache License, Version 2.0.
 //      See http://www.apache.org/licenses/LICENSE-2.0 for full license information.
 //  </copyright>
 // -----------------------------------------------------------------------------
@@ -38,23 +38,20 @@ namespace Phx.Validation {
         }
 
         /// <summary> Throws an <see cref="InvalidOperationException" /> if a validation fails on a value. </summary>
-        /// <param name="valueName"> The name of the value. </param>
         /// <param name="result"> The validation result to evaluate. </param>
-        /// <param name="failureMessageFormat">
-        ///     The message to use in case of a validation failure. The message can be a format
-        ///     string and will be passed the provided name of the value as argument <c> {0} </c>.
+        /// <param name="failureMessage">
+        ///     The message to use in case of a validation failure.
         /// </param>
         /// <exception cref="InvalidOperationException"> Thrown when the provided result is a failure. </exception>
         public static void ThatValue(
-                string valueName,
                 ValidationResult result,
-                string failureMessageFormat = "Value '{0}' is invalid."
+                string failureMessage = "Value is invalid."
         ) {
             switch (result) {
                 case SuccessResult:
                     break;
                 case FailureResult failure:
-                    throw new InvalidOperationException(string.Format(failureMessageFormat, valueName), failure.Cause);
+                    throw new InvalidOperationException(failureMessage, failure.Cause);
                 default:
 #pragma warning disable RCS1140
                     // Add exception to documentation comment: NotSupportedException should never be thrown.

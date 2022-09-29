@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 //  <copyright file="Validations.cs" company="Star Cruise Studios LLC">
 //      Copyright (c) 2022 Star Cruise Studios LLC. All rights reserved.
-//      Licensed under the Apache License 2.0 License.
+//      Licensed under the Apache License, Version 2.0.
 //      See http://www.apache.org/licenses/LICENSE-2.0 for full license information.
 //  </copyright>
 // -----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ namespace Phx.Validation {
         /// <returns> The <see cref="ValidationResult" />. </returns>
         public static ValidationResult IsEqualTo<T>(this T value, T expected) {
             return EqualityComparer<T>.Default.Equals(value, expected)
-                    ? new SuccessResult()
+                    ? ValidationResult.Success()
                     : ValidationResult.Failure($"The value <{value}> did not match expected value <{expected}>.");
         }
 
@@ -51,7 +51,29 @@ namespace Phx.Validation {
         public static ValidationResult IsNotEqualTo<T>(this T value, T unexpected) {
             return EqualityComparer<T>.Default.Equals(value, unexpected)
                     ? ValidationResult.Failure($"The value <{value}> matched unexpected value <{unexpected}>.")
-                    : new SuccessResult();
+                    : ValidationResult.Success();
+        }
+
+        /// <summary> Validates that the given value references the given instance. </summary>
+        /// <param name="value"> The value to validate. </param>
+        /// <param name="expected"> The expected value to validate against. </param>
+        /// <returns> The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsReferenceEqualTo(this object? value, object? expected) {
+            return ReferenceEquals(value, expected)
+                    ? ValidationResult.Success()
+                    : ValidationResult.Failure(
+                            $"The value <{value}> does not reference the expected object <{expected}>.");
+        }
+
+        /// <summary> Validates that the given value does not reference the given instance. </summary>
+        /// <param name="value"> The value to validate. </param>
+        /// <param name="unexpected"> The unexpected value to validate against. </param>
+        /// <returns> The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsReferenceNotEqualTo(this object? value, object? unexpected) {
+            return ReferenceEquals(value, unexpected)
+                    ? ValidationResult.Failure(
+                            $"The value <{value}> references unexpected object <{unexpected}>.")
+                    : ValidationResult.Success();
         }
 
         /// <summary> Validates that the given value is <c> null </c>. </summary>
@@ -132,7 +154,7 @@ namespace Phx.Validation {
         /// <param name="collection"> The collection to validate. </param>
         /// <param name="elements"> The elements to search for. </param>
         /// <returns> The <see cref="ValidationResult" />. </returns>
-        public static ValidationResult ContainsAll<T>(this ICollection<T> collection, params T[] elements) {
+        public static ValidationResult ContainsAll<T>(this IEnumerable<T> collection, params T[] elements) {
             return ContainsAll(collection, elements.AsEnumerable());
         }
 
@@ -141,7 +163,7 @@ namespace Phx.Validation {
         /// <param name="collection"> The collection to validate. </param>
         /// <param name="elements"> The elements to search for. </param>
         /// <returns> The <see cref="ValidationResult" />. </returns>
-        public static ValidationResult ContainsAll<T>(this ICollection<T> collection, IEnumerable<T> elements) {
+        public static ValidationResult ContainsAll<T>(this IEnumerable<T> collection, IEnumerable<T> elements) {
             var searchElements = new HashSet<T>(elements);
             foreach (var value in collection) {
                 _ = searchElements.Remove(value);
@@ -160,7 +182,7 @@ namespace Phx.Validation {
         /// <param name="collection"> The collection to validate. </param>
         /// <param name="elements"> The elements to search for. </param>
         /// <returns> The <see cref="ValidationResult" />. </returns>
-        public static ValidationResult ContainsAny<T>(this ICollection<T> collection, params T[] elements) {
+        public static ValidationResult ContainsAny<T>(this IEnumerable<T> collection, params T[] elements) {
             return ContainsAny(collection, elements.AsEnumerable());
         }
 
@@ -169,9 +191,10 @@ namespace Phx.Validation {
         /// <param name="collection"> The collection to validate. </param>
         /// <param name="elements"> The elements to search for. </param>
         /// <returns> The <see cref="ValidationResult" />. </returns>
-        public static ValidationResult ContainsAny<T>(this ICollection<T> collection, IEnumerable<T> elements) {
+        public static ValidationResult ContainsAny<T>(this IEnumerable<T> collection, IEnumerable<T> elements) {
+            var collectionToSearch = collection.ToHashSet();
             foreach (var searchValue in elements) {
-                if (collection.Contains(searchValue)) {
+                if (collectionToSearch.Contains(searchValue)) {
                     return ValidationResult.Success();
                 }
             }

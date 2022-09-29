@@ -1,7 +1,7 @@
 // -----------------------------------------------------------------------------
 //  <copyright file="ValidationsTest.cs" company="Star Cruise Studios LLC">
 //      Copyright (c) 2022 Star Cruise Studios LLC. All rights reserved.
-//      Licensed under the Apache License 2.0 License.
+//      Licensed under the Apache License, Version 2.0.
 //      See http://www.apache.org/licenses/LICENSE-2.0 for full license information.
 //  </copyright>
 // -----------------------------------------------------------------------------
@@ -53,6 +53,24 @@ namespace Phx.Validation {
         [TestCase(Null, Null, false)]
         public void IsNotEqualTo(TestObject a, TestObject b, bool expectSuccess) {
             Verify(a.GetObject().IsNotEqualTo(b.GetObject()), expectSuccess);
+        }
+
+        [TestCase(ObjectA, ObjectB, false)]
+        [TestCase(ObjectA, Null, false)]
+        [TestCase(Null, ObjectB, false)]
+        [TestCase(ObjectA, ObjectA, true)]
+        [TestCase(Null, Null, true)]
+        public void IsReferenceEqualTo(TestObject a, TestObject b, bool expectSuccess) {
+            Verify(a.GetObject().IsReferenceEqualTo(b.GetObject()), expectSuccess);
+        }
+        
+        [TestCase(ObjectA, ObjectB, true)]
+        [TestCase(ObjectA, Null, true)]
+        [TestCase(Null, ObjectB, true)]
+        [TestCase(ObjectA, ObjectA, false)]
+        [TestCase(Null, Null, false)]
+        public void IsReferenceNotEqualTo(TestObject a, TestObject b, bool expectSuccess) {
+            Verify(a.GetObject().IsReferenceNotEqualTo(b.GetObject()), expectSuccess);
         }
 
         [TestCase(ObjectA, true)]
