@@ -39,9 +39,7 @@ namespace Phx.Validation {
 
         /// <summary> Throws an <see cref="InvalidOperationException" /> if a validation fails on a value. </summary>
         /// <param name="result"> The validation result to evaluate. </param>
-        /// <param name="failureMessage">
-        ///     The message to use in case of a validation failure.
-        /// </param>
+        /// <param name="failureMessage"> The message to use in case of a validation failure. </param>
         /// <exception cref="InvalidOperationException"> Thrown when the provided result is a failure. </exception>
         public static void ThatValue(
                 ValidationResult result,

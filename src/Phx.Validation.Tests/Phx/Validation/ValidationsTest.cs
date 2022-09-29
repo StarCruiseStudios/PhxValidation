@@ -63,7 +63,7 @@ namespace Phx.Validation {
         public void IsReferenceEqualTo(TestObject a, TestObject b, bool expectSuccess) {
             Verify(a.GetObject().IsReferenceEqualTo(b.GetObject()), expectSuccess);
         }
-        
+
         [TestCase(ObjectA, ObjectB, true)]
         [TestCase(ObjectA, Null, true)]
         [TestCase(Null, ObjectB, true)]
