@@ -114,6 +114,13 @@ types.
   Require.ThatValue(cupsOfCoffeeConsumed.IsInRange(1, 9, maxInclusive: false));
   ```
 
+* `IsLessThan`/`IsLessThanOrEqualTo`/`IsGreaterThan`/`IsGreaterThanOrEqualTo`:
+  Validates an `IComparable` value has the desired relation to another value.
+  ```csharp
+  Check.That(numPets.IsLessThan(3));
+  Require.ThatValue(cupsOfCoffeeConsumed.IsGreaterThanOrEqualTo(5));
+  ```
+
 * `IsType`/`IsTypeOrNull`: Validates a value is assignable to the given type.
   ```csharp
   Check.That(x.IsType<IDisposable>());
