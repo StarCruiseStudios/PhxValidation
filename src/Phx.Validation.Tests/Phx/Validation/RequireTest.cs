@@ -29,6 +29,14 @@ namespace Phx.Validation {
             _ = TestUtils.TestForError<ArgumentException>(
                     () => Require.ThatArgument(nameof(result), result));
         }
+        
+        [Test]
+        public void RequireThatArgumentOnFailureLazy() {
+            var result = ValidationResult.Failure("Test failed");
+
+            _ = TestUtils.TestForError<ArgumentException>(
+                    () => Require.ThatArgument(nameof(result), result, (argumentName) => $"{argumentName} failed."));
+        }
 
         [Test]
         public void RequireThatValueOnSuccess() {
@@ -43,6 +51,14 @@ namespace Phx.Validation {
 
             _ = TestUtils.TestForError<InvalidOperationException>(
                     () => Require.ThatValue(result));
+        }
+
+        [Test]
+        public void RequireThatValueOnFailureLazy() {
+            var result = ValidationResult.Failure("Test failed");
+
+            _ = TestUtils.TestForError<InvalidOperationException>(
+                    () => Require.ThatValue(result, () => "failed"));
         }
     }
 }

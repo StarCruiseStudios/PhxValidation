@@ -235,16 +235,68 @@ namespace Phx.Validation {
             var minComparison = value.CompareTo(min);
             if (minComparison < 0 || (!minInclusive && minComparison == 0)) {
                 return ValidationResult.Failure(
-                        $"The value is {value} is outside of the range {(minInclusive ? "[" : "(")}{min}, {max}{(maxInclusive ? "]" : ")")}");
+                        $"The value {value} is outside of the range {(minInclusive ? "[" : "(")}{min}, {max}{(maxInclusive ? "]" : ")")}");
             }
 
             var maxComparison = value.CompareTo(max);
             if (maxComparison > 0 || (!maxInclusive && maxComparison == 0)) {
                 return ValidationResult.Failure(
-                        $"The value is {value} is outside of the range {(minInclusive ? "[" : "(")}{min}, {max}{(maxInclusive ? "]" : ")")}");
+                        $"The value {value} is outside of the range {(minInclusive ? "[" : "(")}{min}, {max}{(maxInclusive ? "]" : ")")}");
             }
 
             return ValidationResult.Success();
+        }
+
+        /// <summary>
+        /// Validates that a given value is less than another value. 
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="other">The value to compare to.</param>
+        /// <typeparam name="T">The type of the value to validate. </typeparam>
+        /// <returns>The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsLessThan<T>(this T value, T other) where T : IComparable<T> {
+            return value.CompareTo(other) < 0
+                    ? ValidationResult.Success()
+                    : ValidationResult.Failure($"The value {value} is greater than or equal to {other}.");
+        }
+
+        /// <summary>
+        /// Validates that a given value is less than or equal to another value. 
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="other">The value to compare to.</param>
+        /// <typeparam name="T">The type of the value to validate. </typeparam>
+        /// <returns>The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsLessThanOrEqualTo<T>(this T value, T other) where T : IComparable<T> {
+            return value.CompareTo(other) <= 0
+                    ? ValidationResult.Success()
+                    : ValidationResult.Failure($"The value {value} is greater than {other}.");
+        }
+
+        /// <summary>
+        /// Validates that a given value is greater than another value. 
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="other">The value to compare to.</param>
+        /// <typeparam name="T">The type of the value to validate. </typeparam>
+        /// <returns>The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsGreaterThan<T>(this T value, T other) where T : IComparable<T> {
+            return value.CompareTo(other) > 0
+                    ? ValidationResult.Success()
+                    : ValidationResult.Failure($"The value {value} is less than or equal to {other}.");
+        }
+
+        /// <summary>
+        /// Validates that a given value is greater than or equal to another value. 
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <param name="other">The value to compare to.</param>
+        /// <typeparam name="T">The type of the value to validate. </typeparam>
+        /// <returns>The <see cref="ValidationResult" />. </returns>
+        public static ValidationResult IsGreaterThanOrEqualTo<T>(this T value, T other) where T : IComparable<T> {
+            return value.CompareTo(other) >= 0
+                    ? ValidationResult.Success()
+                    : ValidationResult.Failure($"The value {value} is less than {other}.");
         }
 
         /// <summary> Validates that the given value is assignable to the given type. </summary>

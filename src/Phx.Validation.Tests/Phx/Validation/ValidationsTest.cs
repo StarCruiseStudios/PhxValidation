@@ -232,6 +232,54 @@ namespace Phx.Validation {
 
             Verify(valueObject.IsInRange(minObject, maxObject, minInclusive, maxInclusive), expectSuccess);
         }
+        
+        [TestCase(0, 1, true)]
+        [TestCase(1, 1, false)]
+        [TestCase(2, 1, false)]
+        public void IsLessThan(
+                int value,
+                int other,
+                bool expectSuccess
+        ) {
+            Console.WriteLine($"{value} < {other} = {expectSuccess}");
+            Verify(value.IsLessThan(other), expectSuccess);
+        }
+        
+        [TestCase(0, 1, true)]
+        [TestCase(1, 1, true)]
+        [TestCase(2, 1, false)]
+        public void IsLessThanOrEqualTo(
+                int value,
+                int other,
+                bool expectSuccess
+        ) {
+            Console.WriteLine($"{value} <= {other} = {expectSuccess}");
+            Verify(value.IsLessThanOrEqualTo(other), expectSuccess);
+        }
+        
+        [TestCase(0, 1, false)]
+        [TestCase(1, 1, false)]
+        [TestCase(2, 1, true)]
+        public void IsGreaterThan(
+                int value,
+                int other,
+                bool expectSuccess
+        ) {
+            Console.WriteLine($"{value} > {other} = {expectSuccess}");
+            Verify(value.IsGreaterThan(other), expectSuccess);
+        }
+        
+        [TestCase(0, 1, false)]
+        [TestCase(1, 1, true)]
+        [TestCase(2, 1, true)]
+        public void IsGreaterThanOrEqualTo(
+                int value,
+                int other,
+                bool expectSuccess
+        ) {
+            Console.WriteLine($"{value} >= {other} = {expectSuccess}");
+            Verify(value.IsGreaterThanOrEqualTo(other), expectSuccess);
+        }
 
         [TestCase(ComparableMiddle, true)]
         [TestCase(ObjectA, false)]
