@@ -88,14 +88,14 @@ namespace Phx.Validation {
         [TestCase("string", false)]
         [TestCase("", true)]
         [TestCase(null, true)]
-        public void IsNullOrEmpty(string value, bool expectSuccess) {
+        public void IsNullOrEmpty(string? value, bool expectSuccess) {
             Verify(value.IsNullOrEmpty(), expectSuccess);
         }
 
         [TestCase("string", true)]
         [TestCase("", false)]
         [TestCase(null, false)]
-        public void IsNotNullOrEmpty(string value, bool expectSuccess) {
+        public void IsNotNullOrEmpty(string? value, bool expectSuccess) {
             Verify(value.IsNotNullOrEmpty(), expectSuccess);
         }
 
@@ -104,7 +104,7 @@ namespace Phx.Validation {
         [TestCase(" ", true)]
         [TestCase("\t", true)]
         [TestCase(null, true)]
-        public void IsBlank(string value, bool expectSuccess) {
+        public void IsBlank(string? value, bool expectSuccess) {
             Verify(value.IsBlank(), expectSuccess);
         }
 
@@ -113,7 +113,7 @@ namespace Phx.Validation {
         [TestCase(" ", false)]
         [TestCase("\t", false)]
         [TestCase(null, false)]
-        public void IsNotBlank(string value, bool expectSuccess) {
+        public void IsNotBlank(string? value, bool expectSuccess) {
             Verify(value.IsNotBlank(), expectSuccess);
         }
 

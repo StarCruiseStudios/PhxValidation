@@ -192,7 +192,7 @@ namespace Phx.Validation {
         /// <param name="elements"> The elements to search for. </param>
         /// <returns> The <see cref="ValidationResult" />. </returns>
         public static ValidationResult ContainsAny<T>(this IEnumerable<T> collection, IEnumerable<T> elements) {
-            var collectionToSearch = collection.ToHashSet();
+            var collectionToSearch = new HashSet<T>(collection);
             foreach (var searchValue in elements) {
                 if (collectionToSearch.Contains(searchValue)) {
                     return ValidationResult.Success();
